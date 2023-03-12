@@ -1,0 +1,76 @@
+#include<bits/stdc++.h>
+using namespace std;
+int ans,n,r,c,sr,sc,er,ec,step;
+string s[101];
+void cal(int a1,int b1)
+{ 
+    if(a1==er && b1==ec)
+    {
+        if(step < ans)
+            ans=step;
+    }
+    else
+    {
+        if (s[a1+1][b1]=='0')
+        {
+            s[a1+1][b1]='1';
+            step++;
+            cal(a1+1,b1);
+            s[a1+1][b1]='0';
+            step--;
+        }
+        if (s[a1-1][b1]=='0')
+        {
+            s[a1-1][b1]='1';
+            step++;
+            cal(a1-1,b1);
+            s[a1-1][b1]='0';
+            step--;
+        }
+        if (s[a1][b1+1]=='0')
+        {
+            s[a1][b1+1]='1';
+            step++;
+            cal(a1,b1+1);
+            s[a1][b1+1]='0';
+            step--;
+        }
+        if (s[a1][b1-1]=='0')
+        {
+            s[a1][b1-1]='1';
+            step++;
+            cal(a1,b1-1);
+            s[a1][b1-1]='0';
+            step--;
+        }
+    }
+
+}
+int main()
+{
+
+    cin >> n;
+    for(int k=1;k<=n;k++)
+    {
+        cin >> r >> c >> sr >> sc >> er >> ec;
+        sc--;
+        ec--;
+        for(int i=1;i<=r;i++)
+        {
+            cin >> s[i];
+        }
+        step=1;
+        ans=1000000000;
+        s[sr][sc]='1';
+        cal(sr,sc);
+        if(ans==1000000000)
+        {
+            cout << 0 << endl;
+        }
+        else
+        {
+            cout << ans << endl;
+        }
+    }
+}
+

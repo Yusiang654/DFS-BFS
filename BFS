@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n,r,c,sr,sc,er,ec,step;
+int dx[4]={-1,0,1,0},dy[4]={0,-1,0,1};
+bool b;
+string s[101];
+queue<int> qx,qy,ss;
+void BFS (int a1,int b1)
+{
+
+    int S=ss.front();
+    ss.pop();
+    qx.pop();
+    qy.pop();
+    if(a1==er && b1==ec)
+    {
+        b=1;
+        cout<<S+1<<endl;
+    }
+    else
+    {
+        for(int i=0;i<4;i++)
+        {
+            if (s[a1+dx[i]][b1+dy[i]]=='0')
+            {
+                s[a1+dx[i]][b1+dy[i]]='1';
+                qx.push(a1+dx[i]);
+                qy.push(b1+dy[i]);
+                ss.push(S+1);
+            }
+        }
+        if(!qx.empty())
+        {
+            BFS(qx.front(),qy.front());
+        }
+
+    }
+
+}
+int main ( )
+{
+    cin >> n;
+    for(int k=1;k<=n;k++)
+    {
+        b=0;
+        cin >> r >> c >> sr >> sc >> er >> ec;
+        sc--;
+        ec--;
+        for(int i=1;i<=r;i++)
+        {
+            cin >> s[i];
+        }
+        s[sr][sc]=1;
+        qx.push(sr);
+        qy.push(sc);
+        ss.push(0);
+        BFS(sr,sc);
+        if(!b)
+        {
+            cout<<0<<endl;
+        }
+    }
+}
